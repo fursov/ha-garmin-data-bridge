@@ -16,8 +16,10 @@ from .const import CONF_ENTITIES, CONF_PROFILE, CONF_TOKEN_DIGEST, DOMAIN, MAX_E
 
 def entity_schema(default: list[str] | None = None) -> vol.Schema:
     """Build a multiple-entity selection schema."""
-    field = vol.Required(CONF_ENTITIES, default=default) if default else vol.Required(
-        CONF_ENTITIES
+    field = (
+        vol.Required(CONF_ENTITIES, default=default)
+        if default
+        else vol.Required(CONF_ENTITIES)
     )
     return vol.Schema(
         {field: selector.EntitySelector(selector.EntitySelectorConfig(multiple=True))}
@@ -26,8 +28,10 @@ def entity_schema(default: list[str] | None = None) -> vol.Schema:
 
 def valid_entities(entities: list[str]) -> bool:
     """Require a small, non-duplicated allowlist."""
-    return bool(entities) and len(entities) <= MAX_ENTITIES and len(set(entities)) == len(
-        entities
+    return (
+        bool(entities)
+        and len(entities) <= MAX_ENTITIES
+        and len(set(entities)) == len(entities)
     )
 
 
@@ -67,9 +71,7 @@ class GarminDataBridgeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 ),
             }
         )
-        return self.async_show_form(
-            step_id="user", data_schema=schema, errors=errors
-        )
+        return self.async_show_form(step_id="user", data_schema=schema, errors=errors)
 
     async def async_step_confirm(
         self, user_input: dict[str, Any] | None = None
