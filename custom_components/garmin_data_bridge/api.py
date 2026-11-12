@@ -3,7 +3,6 @@
 from datetime import UTC, datetime
 
 from aiohttp import web
-
 from homeassistant.components.http import HomeAssistantView
 
 from .auth import verify_bearer_header
