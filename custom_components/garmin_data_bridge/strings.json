@@ -1,0 +1,39 @@
+{
+  "title": "Garmin Data Bridge",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Create a Garmin profile",
+        "description": "Choose the entities this profile can read. Each profile gets an independent token.",
+        "data": {
+          "profile": "Profile name",
+          "entities": "Exposed entities"
+        }
+      },
+      "confirm": {
+        "title": "Copy the access token",
+        "description": "Copy this token now; it is displayed only once. Configure it in the Garmin client over HTTPS. It will not be recoverable later.\n\n**{token}**"
+      }
+    },
+    "error": {
+      "invalid_entities": "Select between 1 and 8 different entities.",
+      "invalid_profile": "Enter a profile name."
+    },
+    "abort": {
+      "invalid_setup": "The setup flow expired. Start again."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Entities exposed to this profile",
+        "data": {
+          "entities": "Exposed entities"
+        }
+      }
+    },
+    "error": {
+      "invalid_entities": "Select between 1 and 8 different entities."
+    }
+  }
+}

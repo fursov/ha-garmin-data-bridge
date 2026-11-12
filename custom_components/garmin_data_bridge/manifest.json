@@ -1,0 +1,12 @@
+{
+  "domain": "garmin_data_bridge",
+  "name": "Garmin Data Bridge",
+  "codeowners": ["@fursov"],
+  "config_flow": true,
+  "dependencies": ["http"],
+  "documentation": "https://github.com/fursov/ha-garmin-data-bridge",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/fursov/ha-garmin-data-bridge/issues",
+  "version": "0.1.0"
+}
