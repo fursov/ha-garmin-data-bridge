@@ -36,8 +36,10 @@ The same layout works with earlier HACS versions.
 ## Setup
 
 1. Add the integration and choose a profile name and 1–8 entities.
-2. **Copy the token** from the confirmation step before submitting the form.
-   The token cannot be recovered later.
+2. **Copy the token** from the pre-filled text field in the confirmation step before
+   submitting. Focus the input and use Select All / Copy (Ctrl+A, Ctrl+C or
+   Cmd+A, Cmd+C) to avoid missing characters. Do not edit the token: the form
+   will reject modified text. The token cannot be recovered later.
 3. Set the URL and token in the Connect IQ client's settings (client code is
    a separate project).
 
