@@ -33,6 +33,19 @@ Marketplace **cannot install private GitHub repositories**. Once public, this
 repository can be added from **Settings → Marketplace → Add from link**.
 The same layout works with earlier HACS versions.
 
+## Integration icon
+
+The integration bundles a transparent **256×256 PNG icon** at
+`custom_components/garmin_data_bridge/brand/icon.png`.
+Home Assistant **2026.3 or newer** loads custom integration brand images
+directly from this directory. The icon works in light and dark themes and
+requires no extra Home Assistant Brands repository submission.
+
+After updating the integration, reload the Home Assistant frontend if an old
+placeholder icon is cached. The file can be checked from an authenticated
+Home Assistant session at
+`/api/brands/integration/garmin_data_bridge/icon.png?placeholder=no`.
+
 ## Setup
 
 1. Add the integration and choose a profile name and 1–8 entities.
