@@ -12,12 +12,16 @@
       },
       "confirm": {
         "title": "Copy the access token",
-        "description": "Copy this token now; it is displayed only once. Configure it in the Garmin client over HTTPS. It will not be recoverable later.\n\n**{token}**"
+        "description": "The token is shown only once. To copy it completely, focus the field below, then use Select All and Copy (Ctrl+A / Ctrl+C or Cmd+A / Cmd+C). Do not modify the token. It cannot be recovered later.",
+        "data": {
+          "copy_token": "Access token (copy from this field)"
+        }
       }
     },
     "error": {
       "invalid_entities": "Select between 1 and 8 different entities.",
-      "invalid_profile": "Enter a profile name."
+      "invalid_profile": "Enter a profile name.",
+      "token_modified": "The token was modified. Copy the original value and try again."
     },
     "abort": {
       "invalid_setup": "The setup flow expired. Start again."

@@ -13,6 +13,8 @@ from homeassistant.helpers import selector
 from .auth import generate_token, token_digest
 from .const import CONF_ENTITIES, CONF_PROFILE, CONF_TOKEN_DIGEST, DOMAIN, MAX_ENTITIES
 
+_COPY_TOKEN_FIELD = "copy_token"
+
 
 def entity_schema(default: list[str] | None = None) -> vol.Schema:
     """Build a multiple-entity selection schema."""
@@ -80,20 +82,37 @@ class GarminDataBridgeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if self._token is None or self._profile is None:
             return self.async_abort(reason="invalid_setup")
 
+        errors: dict[str, str] = {}
         if user_input is not None:
-            return self.async_create_entry(
-                title=self._profile,
-                data={
-                    CONF_PROFILE: self._profile,
-                    CONF_ENTITIES: self._entities,
-                    CONF_TOKEN_DIGEST: token_digest(self._token),
-                },
-            )
+            # A changed field must never become the credential saved for this
+            # profile. Only the generated token is valid.
+            if user_input.get(_COPY_TOKEN_FIELD, self._token) != self._token:
+                errors["base"] = "token_modified"
+            else:
+                return self.async_create_entry(
+                    title=self._profile,
+                    data={
+                        CONF_PROFILE: self._profile,
+                        CONF_ENTITIES: self._entities,
+                        CONF_TOKEN_DIGEST: token_digest(self._token),
+                    },
+                )
 
+        # A standard text selector is focusable and supports Select All / Copy.
+        # The read_only flag would disable the input in HA, preventing focus.
+        # Home Assistant does not support an inline clipboard button in flows.
         return self.async_show_form(
             step_id="confirm",
-            data_schema=vol.Schema({}),
-            description_placeholders={"token": self._token},
+            data_schema=vol.Schema(
+                {
+                    vol.Optional(_COPY_TOKEN_FIELD, default=self._token): (
+                        selector.TextSelector(
+                            selector.TextSelectorConfig(autocomplete="off")
+                        )
+                    )
+                }
+            ),
+            errors=errors,
         )
 
     @staticmethod
