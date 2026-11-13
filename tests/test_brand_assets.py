@@ -32,9 +32,7 @@ def test_icon_is_valid_transparent_256px_png() -> None:
         assert stored_crc == crc32(name + payload)
         chunks.add(name)
         if name == b"IHDR":
-            width, height, bit_depth, image_color_type = unpack(
-                ">IIBB", payload[:10]
-            )
+            width, height, bit_depth, image_color_type = unpack(">IIBB", payload[:10])
             assert (width, height, bit_depth) == (256, 256, 8)
         offset = chunk_end
         if name == b"IEND":
